@@ -15,8 +15,10 @@ from .serializers import (
     PasswordResetEmailSerializer, PasswordResetConfirmSerializer
 )
 from .utils import send_confirmation_email, send_password_reset_email
+from drf_spectacular.utils import extend_schema
 
 
+@extend_schema(tags=['Authentication'])
 class RegisterView(APIView):
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
@@ -29,6 +31,7 @@ class RegisterView(APIView):
         return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
 
 
+@extend_schema(tags=['Email Confirmation'])
 class ConfirmEmailAPIView(APIView):
     permission_classes = [AllowAny]
     serializer_class = ConfirmEmailSerializer
@@ -52,6 +55,8 @@ class ConfirmEmailAPIView(APIView):
         return Response({"error": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+@extend_schema(tags=['Email Confirmation'])
 class ResendConfirmationEmailAPIView(APIView):
     permission_classes = [AllowAny]
     serializer_class = ResendEmailSerializer
@@ -73,6 +78,7 @@ class ResendConfirmationEmailAPIView(APIView):
         return Response({"message": "Confirmation email resent."}, status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=['Authentication'])
 class LoginView(APIView):
     permission_classes = [AllowAny]
     serializer_class = LoginSerializer
@@ -95,6 +101,7 @@ class LoginView(APIView):
         }, status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=['Password Management'])
 class PasswordResetRequestView(APIView):
     permission_classes = [AllowAny]
     serializer_class = PasswordResetEmailSerializer
@@ -113,6 +120,7 @@ class PasswordResetRequestView(APIView):
         return Response({'detail': 'Password reset email sent.'}, status=status.HTTP_200_OK)
 
 
+@extend_schema(tags=['Password Management'])
 class PasswordResetConfirmView(APIView):
     permission_classes = [AllowAny]
     serializer_class = PasswordResetConfirmSerializer
