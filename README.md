@@ -41,7 +41,7 @@ A RESTful API built with **Django REST Framework** that allows users to create a
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/workout-planner-api.git
+git clone https://github.com/lukaakhalkatsi/workout-planner-api.git
 cd workout-planner-api
 
 # Create virtual environment
