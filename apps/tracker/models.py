@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from apps.base.models import BaseModel
+from config.settings import AUTH_USER_MODEL
+
 
 class WeightEntry(BaseModel):
     """
     Tracks a user's weight over time.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='weight_entries')
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='weight_entries')
     date = models.DateField()
     weight_kg = models.FloatField()
 
@@ -26,7 +28,7 @@ class FitnessGoal(BaseModel):
         ('exercise', 'Exercise'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='fitness_goals')
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='fitness_goals')
     goal_type = models.CharField(max_length=20, choices=GOAL_TYPE_CHOICES)
     target_value = models.FloatField(help_text="Target weight (kg) or exercise metric")
     exercise = models.ForeignKey('exercises.Exercise', null=True, blank=True, on_delete=models.SET_NULL)
