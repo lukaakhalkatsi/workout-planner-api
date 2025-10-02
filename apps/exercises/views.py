@@ -5,7 +5,10 @@ from .models import Exercise
 from .serializers import ExerciseSerializer
 from drf_spectacular.utils import extend_schema
 
-@extend_schema(tags=['Exercises'])
+@extend_schema(
+    tags=['Exercises'],
+    responses=ExerciseSerializer(many=True)
+)
 class ExerciseListView(APIView):
     """
     GET /api/exercises/
@@ -18,7 +21,10 @@ class ExerciseListView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@extend_schema(tags=['Exercises'])
+@extend_schema(
+    tags=['Exercises'],
+    responses=ExerciseSerializer
+)
 class ExerciseDetailView(APIView):
     """
     GET /api/exercises/{id}/

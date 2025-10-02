@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,7 +7,11 @@ from rest_framework.permissions import IsAuthenticated
 from .models import WorkoutPlan, WorkoutExercise
 from .serializers import WorkoutPlanSerializer, WorkoutExerciseSerializer
 
-
+@extend_schema(
+    tags=['Workouts'],
+    responses=WorkoutPlanSerializer(many=True),
+    request=WorkoutPlanSerializer
+)
 class WorkoutPlanListCreateView(APIView):
     """
     GET: List all workout plans of the authenticated user.
@@ -28,7 +33,11 @@ class WorkoutPlanListCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@extend_schema(
+    tags=['Workouts'],
+    responses=WorkoutPlanSerializer,
+    request=WorkoutPlanSerializer
+)
 class WorkoutPlanDetailView(APIView):
     """
     GET: Retrieve a specific workout plan by ID.
