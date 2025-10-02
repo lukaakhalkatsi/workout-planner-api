@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from apps.exercises.models import Exercise
 from apps.base.models import BaseModel
+from config.settings import AUTH_USER_MODEL
 
 
 class WorkoutPlan(BaseModel):
@@ -9,7 +9,7 @@ class WorkoutPlan(BaseModel):
     Represents a personalized workout plan created by a user.
     Users can specify goals, plan type, frequency, and daily session duration.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="workout_plans")
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="workout_plans")
     name = models.CharField(max_length=150)
     goal = models.CharField(max_length=100, help_text="User's fitness goal for this plan (e.g., 'Build muscle', 'Lose weight').")
     plan_type = models.CharField(max_length=50, help_text="Type of plan (e.g., 'Strength', 'Cardio', 'Mixed').")
